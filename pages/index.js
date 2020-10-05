@@ -1,7 +1,33 @@
-import Head from 'next/head'
+import React, {useEffect,useState} from "react";
+
+import Head from "next/head";
+
+import GameWindow from "./components/GameWindow";
 
 export default function Home() {
-  return (
+	const [width, setWidth] = useState(0);
+	const [height, setHeight] = useState(0);
+
+	const handleResize = () => {
+			setWidth(window.innerWidth);
+			setHeight(window.innerHeight);
+	}
+	useEffect(() => {
+
+	window.addEventListener("resize", handleResize);
+
+  	return () => {
+  		window.removeEventListener("resize", handleResize);
+  	};
+  
+	}, [])
+	return (
+		<div>
+      <GameWindow width={width} height={height}/>
+		</div>
+	);
+
+	/*return (
     <div className="container">
       <Head>
         <title>Create Next App</title>
@@ -205,5 +231,5 @@ export default function Home() {
         }
       `}</style>
     </div>
-  )
+  )*/
 }
